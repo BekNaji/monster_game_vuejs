@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Vue Js</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<!-- Popper JS -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<style type="text/css">
+		body { background: #E9E5E5 !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div id="app">
+				<br><br>
+				<div class="row">
+					<div class="col-md-6 text-center">
+						<div class="card">
+							<div class="card-body">
+								<h2>You</h2><hr>
+								<div class="progress" style="height:20px">
+									<div
+										class="progress-bar"
+										:style="{width: player_health+'%'}"
+										style="width:40%;height:20px">
+										{{ player_health+"%" }}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6 text-center">
+						<div class="card">
+							<div class="card-body">
+								<h2>Monster</h2><hr>
+								<div class="progress" style="height:20px">
+									<div
+										class="progress-bar"
+										:style="{width: monster_health+'%'}"
+										style="width:40%;height:20px">
+										{{ monster_health+"%" }}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-md-8 offset-md-2 text-center">
+						<br>
+						<div v-if="!game_is_on"  class="card">
+							<div class="card-body shadow-lg">
+								<button @click="start_game" class="btn btn-outline-success btn-block">New Game</button>
+							</div>
+						</div>
+						<br>
+						<div class="card shadow-lg" v-if="game_is_on">
+							<div class="card-body text-center">
+								<button @click="attack" class="btn btn-warning">Attack</button>
+								<button @click="special_attack" class="btn btn-danger">
+								Speacial Attack</button>
+								<button @click="heal_up" class="btn btn-success">First Aid </button>
+								<button @click="give_up" class="btn btn-secondary">Give Up</button>
+							</div>
+						</div>
+						<br>
+						<div class="card shadow-lg" v-if="logs.length > 0" >
+							<div class="card-body">
+								<div 
+								:class="
+								{'alert-success':log.turn == 'p',
+								 'alert-danger':log.turn == 'm',
+								 'alert-primary': log.turn == 'info',
+								}" 
+								v-for="log in logs.slice().reverse()" class="alert ">
+									<strong >{{ log.text }}</strong> 
+								</div>
+							</div>
+						</div>
+						<div v-else></div>
+					</div>
+					
+				</div>
+				<br><br><br>
+			</div>
+		</div>
+		<script type="text/javascript" src="app.js"></script>
+	</body>
+</html>
